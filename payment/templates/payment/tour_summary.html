@@ -1,0 +1,193 @@
+{% load vendor_list_filters %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>VOLSHEBNY HOLIDAYS LLP TOUR SUMMARY</title>
+    <style>
+        table, th, td,caption,h5 {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th ,td{
+            text-align: left;
+           
+        }  
+        
+        .pnl_bal th{
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .pnl_bal td{
+            padding-left: 10px;
+            padding-right: 10px;
+        }       
+</style>
+    </head>
+<body>
+    <div>
+        <h5 class="hk-sec-title" align="center">VOLSHEBNY HOLIDAYS LLP</h5>
+        <table>
+        <tr>
+            <th>VT Ref No.</th>
+            <td>{{tour_order.groupdescription_vtrefNo}}</td>
+            </tr>
+        </table>
+        
+    </div>
+    <br>
+    <div>
+    <span style="float: right;position: relative;right: 100px">
+    <div>
+                <table class="pnl_bal">
+                <caption>{{tour_order.groupdescription_vtrefNo}}</caption>
+                <tr>
+                        <th>Quoted Amount</th>
+                        <td class="text-center">{{ tour_order.groupdescription_amount }}</td>
+                    </tr>
+                    <tr>
+                      <th>Payments</th>
+                     <td class="text-center">{{ payment_total }}</td>
+                     </tr>
+                    <tr>
+                     <th>P & L Balance</th>
+                    <td class="text-center">{{ pnlbalance }}</td>
+                    </tr>
+                </table>
+                    </div>    
+        </span>
+     <section class="hk-sec-wrapper">
+                            
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="table-wrap">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0" style="width: 50%">
+                                                    <tr>
+                                                        <th>Client Name</th>
+                                                        <td>{{client_name|title}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Number of Passengers ( Paid )</th>
+                                                        <td>{{tour_order.groupdescription_number_of_passengers_paid}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Number of Passengers ( Free )</th>
+                                                        <td>{{tour_order.groupdescription_number_of_passengers_free}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Traveling Start Date</th>
+                                                        <td>{{tour_order.groupdescription_start_date}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Traveling End Date</th>
+                                                        <td>{{tour_order.groupdescription_end_date}}</td>
+                                                    </tr>
+                                                       <tr>
+                                                        <th>Destination</th>
+                                                        <td>{{tour_order.groupdescription_destination}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>No. of Days</th>
+                                                        <td>{{tour_order.groupdescription_number_of_days}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Volsebny Handle Person</th>
+                                                        <td>{{tour_order.groupdescription_volshebny_handle_person}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Client Handle person</th>
+                                                        <td>{{tour_order.groupdescription_client_handle_person}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Booking Date</th>
+                                                        <td>{{tour_order.groupdescription_booking_date}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Confirmation Date</th>
+                                                        <td>{{tour_order.groupdescription_confirmation_date}}</td>
+                                                    </tr>
+                                                     <tr>
+                                                        <th>Quoted Amount</th>
+                                                        <td>{{tour_order.groupdescription_amount}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Payment Method</th>
+                                                        <td>{{tour_order.groupdescription_payment_method}}</td>
+                                                    </tr>
+                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+    </div>
+    <br>
+    <br>
+    <div>
+      <section class="hk-sec-wrapper">
+                            
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="table-wrap">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0" style="width: 100%">
+                                                <caption>PAYMENT</caption>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr. No</th>
+                                                        <th>Type of Service</th>
+                                                        
+                                                        <th>Vendor Name/Company</th>
+                                                        <th>Number of Passengers</th>
+                                                        <th>ROE</th>
+                                                        <th>Quote / Head</th>
+                                                        <th>GST</th>   
+                                                        <th>Total Amount</th>
+                                                        <th>Payment Method</th>
+                                                        <th>Payment Status</th>
+                                                        <!-- <th>Payment Date</th>
+                                                        <th>Payment Remark</th> -->
+                                                    </tr>
+                                                     </thead>
+                                                   <tbody>
+                                                    {% for service_list in service_list %}
+                                                    <tr>
+                                                       <td>{{ forloop.counter }}</td>
+                                                       <td>{{ service_list.service_type }}</td>
+                                                       
+                                                       <td>{{ vendor_dict|get_item:service_list.service_vendor_id }}</td>
+                                                       <td>{{ service_list.service_number_of_passengers }}</td>
+                                                       <td>{{ service_list.service_roe }}</td>
+                                                       <td>{{ service_list.service_quote_per_head }}</td>
+                                                       <td>{{ service_list.service_gst }}</td>
+                                                       <td>{{ service_list.service_total_amount }}</td>
+                                                       <td>{{ service_list.service_payment_method }}</td>
+                                                       <td>{{ service_list.service_vendor_payment_status }}</td>
+                                                       <!-- <td>{{ service_list.service_vendor_id }}</td>
+                                                       <td>{{ service_list.service_vendor_id }}</td> -->
+                                                       
+                                                    </tr>
+                                                    {% endfor %}
+                                               </tbody>
+                                              <tfoot>
+                                                    <tr>
+                                                      <td>Total Amount</td>
+                                                      <td colspan="6"></td>
+                                                        <td>{{ payment_total }}</td>
+                                                        
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                  </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+        <br>
+    </body>
+</html>

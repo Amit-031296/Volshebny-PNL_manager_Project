@@ -1,0 +1,108 @@
+{% extends 'payment/base.html' %}
+
+{% load static %}
+
+{% block headscript %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+{% endblock headscript %}
+
+
+{% block content %}
+<!-- Modal for CURD Operation -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+<!-- Page Content -->
+<div id="content">
+    <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+        </button>
+      <hr>
+
+                <h2>All Client Accounts<span style="float: right"><button class="create_new_client btn btn-info">Add a New Client</button></span></h2>
+
+        <hr>
+        <div>
+            
+            <table id="test_table" class="display" style="width:100%; text-align:center">
+                <thead>
+                    <tr>
+                        <th>Serial No.</th>
+                        <th>Client Id</th>
+                        
+                        <th>Client Name</th>
+                         
+                        <th>Payment Received</th>
+                        <th>Payment Pending</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key,value in clientlist.items %}
+                    <tr>
+                       <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                        <td class="text-center">{{ key.0 }}</td>
+                        <td class="text-center">{{ key.1 }}</td>
+                        <td class="text-center"><a href="{% url 'payment:client_payment_list' payment_status='Paid' client_id=key.0  %}"> {{value.0}} </a></td>
+                       <td class="text-center"><a href="{% url 'payment:client_payment_list' payment_status='Pending' client_id=key.0  %}">{{value.1}}</a></td>
+                        <td>
+							<button type="button" class="update-book btn btn-sm btn-primary" data-id="{% url 'payment:client_update' pk=key.0  %}">
+								<span class="fa fa-edit"></span>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="delete-book btn btn-sm btn-danger" data-id="{% url 'payment:client_delete' pk=key.0  %}">
+								<span class="fa fa-trash"></span>
+							</button>
+						</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            {% comment %} <p class="no-leads text-primary">No entry added yet.</p> {% endcomment %}
+            
+        </div>
+        <!--TEST TABLE ENDS HERE-->
+    </div>
+</div>
+<!--PAGE CONTENT ENDS HERE-->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#test_table').DataTable();
+    });
+</script>
+{% endblock %}
+
+{% block extrascript %}
+<script type="text/javascript">
+    $(function() {
+         $(".create_new_client").modalForm({
+        formURL: "{% url 'payment:add_new_client' %}"
+    });
+        $(".update-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+         $(".delete-book").each(function() {
+			$(this).modalForm({
+				formURL: $(this).data('id')
+			});
+		});
+        
+      $(".read-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+    });
+</script>
+{% endblock %}

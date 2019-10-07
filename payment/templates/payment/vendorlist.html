@@ -1,0 +1,131 @@
+{% extends 'payment/base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+{% endblock %}
+
+
+{% block headscript %}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<!--jQuery-->
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+
+{% endblock headscript %}
+
+
+{% block content %}
+<!-- Modal for CURD Operation -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<!-- PAGE CONTENT  -->
+        <div id="content">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+      <hr>
+
+                <h2>All Vendor Accounts<span style="float: right"><button class="create_new_vendor btn btn-info">Add a New Vendor</button></span></h2>
+
+        <hr>
+            <div>  
+            {% if vendorlist %}     
+                        <table id="test_table" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                                        <th>Serial No.</th>
+                                                        <th>Vendor Id</th>
+                                                        <th>Vendor Name</th>
+                                                        <th>Payment Pending</th>
+                                                        <th>Payment Done</th>
+                                                        <th>Amount Pending</th>
+                                                        <th>Amount Done</th>
+                                                        <th>Update</th>
+                                                        {% comment %}
+                                                        {% if userrole == 1 %}
+                                                        {% endif %} 
+                                                        {% endcomment %}
+                                        
+                                                        <th>Delete</th>
+                                                        
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for key,value in vendorlist.items %}
+                            <tr>
+                            <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                       <td class="text-center">{{ key.0 }}</td>
+                        <td class="text-center">{{ key.1 }}</td>
+                        <td class="text-center"><a href="{% url 'payment:vendor_payment_list' payment_status='Pending' vendor_id=key.0 %}">{{value.0}}</a> </td>
+                       <td class="text-center"><a href="{% url 'payment:vendor_payment_list' payment_status='Done' vendor_id=key.0 %}">{{value.1}}</a></td>
+                        <td class="text-center">{{value.2}}</a></td>
+                        <td class="text-center">{{value.3}}</a></td>
+                        <td>
+                            <button type="button" class="update-book btn btn-sm btn-primary" data-id="{% url 'payment:vendor_update' pk=key.0 %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        
+                        <td>
+                        
+                            <button type="button" class="delete-book btn btn-sm btn-danger" data-id="{% url 'payment:vendor_delete' pk=key.0 %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                            
+                        </td>
+                        
+                        </tr>
+                        {% endfor %}
+                             </tbody>
+                        </table>
+                        {% else %}
+            <p class="no-leads text-primary">No entry added yet.</p>
+            {% endif %}
+                </div>
+                <!--TEST TABLE ENDS HERE-->
+            </div>
+        </div>
+        <!--PAGE CONTENT ENDS HERE-->
+        {% endblock %}
+
+    {% block script %}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#test_table').DataTable();
+    });
+</script>
+
+    {% endblock %}
+
+    {% block extrascript %}
+    <script type="text/javascript">
+    $(function() {
+              $(".create_new_vendor").modalForm({
+        formURL: "{% url 'payment:add_new_vendor' %}"
+    });
+        $(".update-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+         $(".delete-book").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
+        
+      $(".read-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+    });
+
+    
+</script>
+      
+    {% endblock %}

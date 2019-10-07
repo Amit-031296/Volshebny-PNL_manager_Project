@@ -1,0 +1,116 @@
+{% extends 'payment/base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+{% endblock %}
+
+
+{% block headscript %}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<!--jQuery-->
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+
+{% endblock headscript %}
+
+{% block content %}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+<div id="content">
+    <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+        </button>
+        <hr>
+        <center><button class="create-client-list btn btn-info" type="button" name="button">Click here to Create a New User</button></center>
+        <hr>
+        <div>
+            <table id="TestTable">
+                <thead>
+                    <tr>
+                        <th>User Id</th>
+                        <th>User Name</th>
+                        <th>User Email</th>
+                        <th>User Role</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td class="text">{{ user.pk }}</td>
+                        <td class="text">{{ user.username }}</td>
+                        <td class="text">{{ user.email }}</td>
+                        <td class="text">
+                            {% if user.user_role == 1 %}
+                            Super Admin
+                            {% else %}
+                            Admin
+                            {% endif %}
+                        </td>
+                        <td>
+                            <center>
+                                <button type="button" class="update-users-list btn btn-sm btn-primary" data-id="{% url 'payment:userupdate' user.pk %}">
+                                    <span class="fa fa-edit"></span>
+                                </button>
+                            </center>
+                        </td>
+                        <td>
+                            <center>
+                                <button type="button" class="delete-users-list btn btn-sm btn-danger" data-id="{% url 'payment:userdelete' user.pk %}">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </center>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#TestTable').DataTable();
+    });
+</script>
+{% endblock %}
+
+{% block extrascript %}
+<script type="text/javascript">
+    $(function() {
+        $(".create-client-list").modalForm({
+            formURL: "{% url 'payment:add_users' %}"
+        });
+
+        $(".update-users-list").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete-users-list").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+{% endblock %}

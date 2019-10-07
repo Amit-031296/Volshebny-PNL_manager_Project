@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Volshebny - Register</title>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/bootstrap.min.css' %}>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/fontawesome-all.min.css' %}>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/iofrm-style.css' %}>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/iofrm-theme5.css' %}>
+</head>
+
+<body>
+	<div class="form-body" style="background-color: #7386D5 !important;">
+		<div class="row">
+			<div class="form-holder" style="background-color: #7386D5 !important;">
+				<div class="form-content" style="background-color: #7386D5 !important;">
+					<div class="form-items">
+						<h3>Register to Volshebny Welcome Aboard!</h3>
+						<p>Enter your details to make a new account!</p>
+						<div class="page-links">
+							<a href={% url 'payment:user_login' %}>Login</a><a href={% url 'payment:user_sign_up' %} class="active">Register</a>
+						</div>
+						{% if error_message %}
+						<p style='color:red'>{{ error_message }}</p>
+						{% endif %}
+						<form method="post" action={% url 'payment:user_sign_up'%}>
+							{% csrf_token %}
+							<input class="form-control" type="text" name="username" placeholder="Username" required>
+							<input class="form-control" type="password" name="password" placeholder="Password" required>
+							<input class="form-control" type="password" name="confirm_password" placeholder="Confirm Password" required>
+							<div class="form-button">
+								<button id="submit" type="submit" class="ibtn">Register</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

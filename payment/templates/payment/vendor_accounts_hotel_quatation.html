@@ -1,0 +1,100 @@
+{% extends 'payment/base.html' %}
+
+{% load static %}
+
+{% block headscript %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+{% endblock headscript %}
+
+{% block content %}
+<!-- Modal for CURD Operation -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+<!-- Page Content -->
+<div id="content">
+	<div class="container-fluid">
+		<button type="button" id="sidebarCollapse" class="btn btn-info">
+			<i class="fas fa-align-left"></i>
+		</button>
+        <hr>
+
+                <h2>Hotel Vendors</h2>
+
+        <hr>
+        <div>
+                       <table id="test_table" class="display" style="width:100%; text-align: center">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Vendor ID</th>
+                                    <th>Vendor Name</th>
+                                    <th>Payment Pending</th>
+                                     <th>Payment Done</th>
+                                     <th>Amount Pending</th>
+                        <th>Amount Done</th>
+                                     <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            
+                               <tbody>
+                    {% for key,value in hotel_list.items %}
+                    <tr>
+                        <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                        <td class="text-center">{{ key.0 }}</td>
+                        <td class="text-center">{{ key.1 }}</td>
+                        <td class="text-center"><a href="{% url 'payment:vendor_accounts_hotel_quatation_details'  vendor_id=key.0 payment_status="Pending"  %}"> {{value.0}} </a></td>
+                        <td class="text-center"><a href="{% url 'payment:vendor_accounts_hotel_quatation_details'  vendor_id=key.0 payment_status="Done"  %}">{{value.1}}</a></td>
+                        <td class="text-center">{{value.2}}</a></td>
+                        <td class="text-center">{{value.3}}</a></td>
+                        <td>
+							<button type="button" class="update-hotel btn btn-sm btn-primary" data-id="{% url 'payment:vendor_hotel_update' pk=key.0  %}">
+								<span class="fa fa-edit"></span>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="delete-hotel btn btn-sm btn-danger" data-id="{% url 'payment:vendor_hotel_delete' pk=key.0  %}">
+								<span class="fa fa-trash"></span>
+							</button>
+						</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                </div>
+            </div>
+            </div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#test_table').DataTable();
+        });
+    </script> 
+
+{% endblock %}
+{% block extrascript %}
+<script type="text/javascript">
+    $(function() {
+        $(".update-hotel").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+         $(".delete-hotel").each(function() {
+			$(this).modalForm({
+				formURL: $(this).data('id')
+			});
+		});
+        
+      $(".read-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,516 @@
+{% extends 'payment/base.html' %}
+
+{% load vendor_list_filters %}
+
+{% load static %}
+
+
+{% block stylesheets %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block headscript %}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+{% endblock headscript %}
+
+{% block content %}
+{% include "payment/components/_services_modals.html" %}
+<!-- Modal for CURD Operation -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+<div>
+    <!-- PAGE CONTENT  -->
+    <div id="content">
+        <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+            </button>
+
+            <hr>
+
+            <h3>Tour Details<span style="float: right"><button type="button" class="update_edit_tour btn btn-info" style="margin-right: 5px" data-id="{% url 'payment:group_update' grdes.pk %}">Edit Tour Details</button>
+                    <button type="button" class="view_pnlstatement btn btn-primary" data-id="{% url 'payment:tour_summary' grdes.pk %}">PNL Statement Quick Glance</button>
+                    <a href="{% url 'payment:tour_summary' grdes.pk %}" class="btn btn-danger">View PNL Summary</a></span>
+            </h3>
+
+
+            <div>
+                <section class="hk-sec-wrapper">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="table-wrap">
+
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td class="heading_bold">Volshebny Refernce Number ( VT Ref )</td>
+                                            <td class="text-center">{{grdes.groupdescription_vtrefNo}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Client Name</td>
+                                            <td class="text-center">{{grdes.groupdescription_client_id}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Passenger (Paid)</td>
+                                            <td class="text-center">{{grdes.groupdescription_number_of_passengers_paid}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold"> Passenger (Free)</td>
+                                            <td class="text-center">{{grdes.groupdescription_number_of_passengers_free}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Traveling Start Date</td>
+                                            <td class="text-center">{{grdes.groupdescription_start_date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Traveling End Date</td>
+                                            <td class="text-center">{{grdes.groupdescription_end_date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Destination</td>
+                                            <td class="text-center">{{grdes.groupdescription_destination}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Number Of Days</td>
+                                            <td class="text-center">{{grdes.groupdescription_number_of_days}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Volshebny Handle Person</td>
+                                            <td class="text-center">{{grdes.groupdescription_volshebny_handle_person}}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Client Handle Person</td>
+                                            <td class="text-center">{{grdes.groupdescription_client_handle_person}}</td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td class="heading_bold">Booking Date</td>
+                                            <td class="text-center">{{grdes.groupdescription_booking_date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Confirmation Date</td>
+                                            <td class="text-center">{{grdes.groupdescription_confirmation_date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Quoted Amount</td>
+                                            <td class="text-center">{{grdes.groupdescription_amount}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="heading_bold">Payment Metdod</td>
+                                            <td class="text-center">{{grdes.groupdescription_payment_method}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+
+
+            <!--Client Details FORM STARTS-->
+            <hr>
+
+            <h3>Services</h3>
+
+            <hr>
+            <!-- Dropdown for services -->
+            <div class="dropdown">
+                <button class="btn-block btn-info dropdown-toggle btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Add Service
+                    <span class="fa fa-plus mr-2"></span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#AirTicketModal">Create Air ticket</button>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#VisaCostModal">Create Visa Cost</button>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#HotelQuatationModal">Create Hotel Quatation</button>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#RestaurantQuatationModal">Create Restaurant Quatation</button>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#EntrancesQuatationModal">Create Entrances Quatation</button>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#SapSanQuatationModal">Create SapSan Quatation</button>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#GuideModal">Create Guide</button>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#TransportModal">Create Transport</button>
+                </div>
+            </div>
+            <hr>
+
+            <h3>Services Lists</h3>
+
+            <hr>
+            <div>
+                <section class="hk-sec-wrapper">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="table-wrap">
+                                <div class="table-responsive table-bordered">
+                                    {% if service_list %}
+                                    <table id="TestTable" class="display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr No.</th>
+                                                <th>Service Type</th>
+                                                <th>Vendor</th>
+                                                <th>Amount</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for service_list in service_list %}
+                                            <tr>
+                                                <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                                <td class="text-center">{{service_list.service_type}}</td>
+                                                <td class="text-center"><center>{{ vendor_dict|get_item:service_list.service_vendor_id }}</td>
+                                                <td class="text-center">{{service_list.service_total_amount}}</td>
+                                                {% if service_list.service_type == "Air Ticket Service" %}  
+                                                <td>
+                            <button type="button" class="update_air_ticket btn btn-sm btn-primary" data-id="{% url 'payment:addservices_airticket_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_air_ticket btn btn-sm btn-danger" data-id="{% url 'payment:addservices_airticket_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>   
+                        {% elif service_list.service_type == "Visa Cost Service" %}
+                         <td>
+                            <button type="button" class="update_visa_cost btn btn-sm btn-primary" data-id="{% url 'payment:addservices_visacost_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_visa_cost btn btn-sm btn-danger" data-id="{% url 'payment:addservices_visacost_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>  
+                        {% elif service_list.service_type == "Hotel Quatation Service" %}
+                        <td>
+                            <button type="button" class="update_hotel btn btn-sm btn-primary" data-id="{% url 'payment:addservices_hotel_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_hotel btn btn-sm btn-danger" data-id="{% url 'payment:addservices_hotel_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>  
+                        {% elif service_list.service_type == "Restuarant Quatation Service" %}
+                         <td>
+                            <button type="button" class="update_restaurant btn btn-sm btn-primary" data-id="{% url 'payment:addservices_restaurant_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_restaurant btn btn-sm btn-danger" data-id="{% url 'payment:addservices_restaurant_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>  
+                        {% elif service_list.service_type == "Entrances Quatation Service" %}
+                        <td>
+                            <button type="button" class="update_entrances btn btn-sm btn-primary" data-id="{% url 'payment:addservices_entrances_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_entrances btn btn-sm btn-danger" data-id="{% url 'payment:addservices_entrances_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td> 
+                        {% elif service_list.service_type == "SapSan Quatation Service" %} 
+                         <td>
+                            <button type="button" class="update_sapsan btn btn-sm btn-primary" data-id="{% url 'payment:addservices_sapsan_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_sapsan btn btn-sm btn-danger" data-id="{% url 'payment:addservices_sapsan_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>
+                        {% elif service_list.service_type == "Guide Service" %} 
+                         <td>
+                            <button type="button" class="update_guide btn btn-sm btn-primary" data-id="{% url 'payment:addservices_guide_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_guide btn btn-sm btn-danger" data-id="{% url 'payment:addservices_guide_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>
+                        {% elif service_list.service_type == "Transport Service" %} 
+                         <td>
+                            <button type="button" class="update_transport btn btn-sm btn-primary" data-id="{% url 'payment:addservices_transport_update' service_list.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="delete_transport btn btn-sm btn-danger" data-id="{% url 'payment:addservices_transport_delete' service_list.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>
+                        
+                        {% endif %}     
+
+
+
+
+
+
+
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+
+                                    </table>
+                                    {% else %}
+                                    <p class="no-leads text-primary">No Services added yet.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <b>Total Amount</b> : <i> Rs. {{ payment_total }} </i>
+                    </div>
+                </section>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#TestTable').DataTable();
+    });
+</script>
+
+{% endblock %}
+
+
+{% block extrascript %}
+  <script>
+      $(function () {
+        $("#datetimepicker1").datetimepicker();
+      });
+    </script>
+<script type="text/javascript">
+    $(function() {
+        $(".addservice-update").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".addservice-delete").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".update_edit_tour").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".view_pnlstatement").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_air_ticket").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_air_ticket").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_visa_cost").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_visa_cost").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_hotel").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_hotel").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_restaurant").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_restaurant").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_entrances").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_entrances").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_sapsan").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_sapsan").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_guide").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_guide").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".update_transport").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete_transport").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+
+        $(".read-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(function() {
+        $('#datetimepicker2').datetimepicker({
+            language: 'en',
+            pick12HourFormat: true
+        });
+    });
+</script>
+{% endblock %}

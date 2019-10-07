@@ -1,0 +1,851 @@
+<!-- AirTicket Modal -->
+<div class="modal fade" id="AirTicketModal" tabindex="-1" role="dialog" aria-labelledby="AirTicketModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AirTicketModalLabel">Add New Airticket Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_airticket_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Vendor Name">Vendor Name</label>
+                            <div class="form-group">
+                                <select class="form-control" id="airticket_service_vendor_id" name="airticket_service_vendor_id">
+                                    {% for vendor in vendors %}
+                                    <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Airline Name">Airline Name</label>
+                            <input type="text" class="form-control" id="airticket_airline_name" name="airticket_airline_name">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Number Of Passengers">Number Of Passengers</label>
+                            <input type="number" class="form-control" id="airticket_number_of_passengers" name="airticket_number_of_passengers" min="1">
+                        </div>
+                        <br>
+                        <div>
+     <label for="Date and Time Of Departure">Date and Time Of Departure</label>
+    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+      <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="airticket_date_and_time_of_depature" name="airticket_date_and_time_of_depature">
+       {{ form.date }}
+      <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+      </div>
+    </div>
+    </div>
+                        <br>
+                                                <div>
+     <label for="Date and Time Of Arrival">Date and Time Of Arrival</label>
+    <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+      <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" id="airticket_date_and_time_of_arrival" name="airticket_date_and_time_of_arrival">
+       {{ form.date }}
+      <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+      </div>
+    </div>
+    </div>
+                        <br>
+                        <div>
+                            <label for="Airline Departure From">Airline Departure From</label>
+                            <input type="text" class="form-control" id="airticket_departure_from" name="airticket_departure_from">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Airline Arrival At">Airline Arrival At</label>
+                            <input type="text" class="form-control" id="airticket_arrival_at" name="airticket_arrival_at">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Quote Per Head">Quote Per Head</label>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="airticket_quote_per_head" name="airticket_quote_per_head" min="1">
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Airticket ROE">Airticket ROE</label>
+                            <input type="text" class="form-control" id="airticket_roe" name="airticket_roe" min="1">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="airticket_type_of_GST" name="airticket_type_of_GST" min="0">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Total Amount">Total Amount</label>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="airticket_total_amount" name="airticket_total_amount" onclick="myFunction1()" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Air Ticket">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /AirTicket Modal -->
+
+<!-- VisaCost Modal -->
+<div class="modal fade" id="VisaCostModal" tabindex="-1" role="dialog" aria-labelledby="VisaCostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="VisaCostModalLabel">Add New VisaCost Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_visacost_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Vendor Name">Vendor Name</label>
+                            <div class="form-group">
+                                <select class="form-control" id="visacost_service_vendor_id" name="visacost_service_vendor_id">
+                                    {% for vendor in vendors %}
+                                    <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Number Of Passengers">Number Of Passengers</label>
+                            <input type="text" class="form-control" id="visacost_number_of_passengers" name="visacost_number_of_passengers" min="1">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Type Of Visa">Type Of Visa</label>
+                            <div class="form-group">
+                                <select class="form-control" id="visacost_type_of_Visa" name="visacost_type_of_Visa">
+                                    <option value="Tourist Single">Tourist Single</option>
+                                    <option value="Tourist Double">Tourist Double</option>
+                                    <option value="Business">Business</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div>
+                            <label for="Time Period">Time Period</label>
+                            <div class="form-group">
+
+                                <select class="form-control" id="visacost_time_period" name="visacost_time_period">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Urgent">Urgent</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Quote Per Head">Quote Per Head</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="visacost_quote_per_head" name="visacost_quote_per_head" min="1">
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Visacost ROE">Visacost ROE</label>
+                            <input type="text" class="form-control" id="visacost_roe" name="visacost_roe" min="1">
+                        </div>
+                        <br>
+                         <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="visacost_type_of_GST" name="visacost_type_of_GST" min="0">
+                        </div>
+                    
+                        <br>
+                        <div>
+                            <label for="Total Amount">Total Amount</label>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="visacost_total_amount" name="visacost_total_amount" onclick="myFunction2()" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Visa Cost">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /VisaCost Modal -->
+
+<!-- HotelQuatation Modal -->
+<div class="modal fade" id="HotelQuatationModal" tabindex="-1" role="dialog" aria-labelledby="HotelQuatationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="HotelQuatationModalLabel">Add New Hotel Quatation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_hotelquatation_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Vendor Name">Vendor Name</label>
+                            <div class="form-group">
+                                <select class="form-control" id="hotel_service_vendor_id" name="hotel_service_vendor_id">
+                                    {% for vendor in vendors %}
+                                    <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Hotel Name">Hotel Name</label>
+                            <input type="text" class="form-control" id="hotelquatation_hotel_name" name="hotelquatation_hotel_name">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Number of Rooms">Number of Rooms</label>
+                            <input type="number" class="form-control" id="hotelquatation_number_of_rooms" name="hotelquatation_number_of_rooms" min="1">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Type of Room">Type of Room</label>
+                            <div class="form-group">
+                                <select name="hotelquatation_type_of_room" id="hotelquatation_type_of_room" class="form-control">
+                                    <option value="Single Occupancy">Single Occupancy</option>
+                                    <option value="Double Occupancy">Double Occupancy</option>
+                                    <option value="Triple Occupancy">Triple Occupancy</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Quote Per Room">Quote Per Room</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="hotel_quote_per_room" name="hotel_quote_per_room" min="1">
+                            </div>
+                        </div>
+                        <br>
+
+                        <div>
+                            <label for="Hotel ROE">Hotel ROE</label>
+                            <input type="text" class="form-control" id="hotel_roe" name="hotel_roe" min="1">
+                        </div>
+
+                        <br>
+                        <div>
+                            <label for="Breakfast Provides">Breakfast Provides</label>
+                            <div class="form-group">
+                                <select name="hotelquatation_breakfast_provided" id="hotelquatation_breakfast_provided" class="form-control">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="hotel_type_of_GST" name="hotel_type_of_GST" min="0">
+                        </div>
+                        
+                        {% comment %} <div>
+                            <label for="Type of GST">Type of GST</label>
+                            <div class="form-group">
+                                <select class="form-control" id="hotel_type_of_GST" name="hotel_type_of_GST">
+                                    <option value="CGST">CGST</option>
+                                    <option value="SGST">SGST</option>
+                                    <option value="GST">GST</option>
+                                    <option value="Not Applicable">Not Applicable</option>
+                                </select>
+                            </div>
+                        </div> {% endcomment %}
+                        <br>
+                        <div>
+                            <label for="Total Amount">Total Amount</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="hotel_total_amount" name="hotel_total_amount" onclick="myFunction3()" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Hotel Quatation">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /HotelQuatation Modal -->
+
+<!-- RestaurantQuatation Modal -->
+<div class="modal fade" id="RestaurantQuatationModal" tabindex="-1" role="dialog" aria-labelledby="RestaurantQuatationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="RestaurantQuatationModalLabel">Add New Restaurant Quatation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_restaurantquatation_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Vendor Name">Vendor Name</label>
+                            <div class="form-group">
+                                <select class="form-control" id="restaurant_service_vendor_id" name="restaurant_service_vendor_id">
+                                    {% for vendor in vendors %}
+                                    <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Restaurant Name">Restaurant Name</label>
+                            <input type="text" class="form-control" id="restaurantquatation_resturant_name" name="restaurantquatation_resturant_name">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Number Of Passengers">Number Of Passengers</label>
+                            <input type="text" class="form-control" id="restaurantquatation_number_of_passengers" name="restaurantquatation_number_of_passengers" min="1">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Restaurant For">Restaurant For</label>
+                            <div class="form-group">
+                                <select class="form-control" id="restaurantquatation_For" name="restaurantquatation_For">
+                                    <option value="CGST">Lunch</option>
+                                    <option value="SGST">Dinner</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div>
+                            <label for="Quote Per Head">Quote Per Head</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="restaurant_quote_per_head" name="restaurant_quote_per_head" min="1">
+                            </div>
+                        </div>
+                        <br>
+
+                        <div>
+                            <label for="Restaurant ROE">Restaurant ROE</label>
+                            <input type="text" class="form-control" id="restaurant_roe" name="restaurant_roe" min="1">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="restaurant_type_of_GST" name="restaurant_type_of_GST" min="0">
+                        </div>
+
+                        {% comment %} <div>
+                            <label for="Type of GST">Type of GST</label>
+                            <div class="form-group">
+                                <select class="form-control" id="restaurant_type_of_GST" name="restaurant_type_of_GST">
+                                    <option value="CGST">CGST</option>
+                                    <option value="SGST">SGST</option>
+                                    <option value="GST">GST</option>
+                                    <option value="Not Applicable">Not Applicable</option>
+                                </select>
+                            </div>
+                        </div> {% endcomment %}
+                        <br>
+                        <div>
+                            <label for="Total Amount">Total Amount</label>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="restaurant_total_amount" name="restaurant_total_amount" onclick="myFunction4()" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Restaurant Quatation">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /RestaurantQuatation Modal -->
+
+<!-- EntrancesQuatation Modal -->
+<div class="modal fade" id="EntrancesQuatationModal" tabindex="-1" role="dialog" aria-labelledby="EntrancesQuatationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EntrancesQuatationModalLabel">Add New Entrances Quatation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_entrancesquatation_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+
+                    <div>
+                        <label for="Vendor Name">Vendor Name</label>
+                        <div class="form-group">
+                            <select class="form-control" id="entrances_service_vendor_id" name="entrances_service_vendor_id">
+                                {% for vendor in vendors %}
+                                <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="Entrances Quatation Name">Entrances Quatation Name</label>
+                        <input type="text" class="form-control" id="entrancesquatation_name" name="entrancesquatation_name">
+                    </div>
+
+                    <br>
+                    <div>
+                            <label for="Number Of Passengers">Number Of Passengers</label>
+                            <input type="text" class="form-control" id="entrances_number_of_passengers" name="entrances_number_of_passengers" min="1">
+                        </div>
+                    <br>
+                    <div>
+                        <label for="Quote Per Head">Quote Per Head</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="entrances_quote_per_head" name="entrances_quote_per_head" min="1">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div>
+                        <label for="Entrances ROE">Entrances ROE</label>
+                        <input type="text" class="form-control" id="entrances_roe" name="entrances_roe" min="1">
+                    </div>
+                    <br>
+                     <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="entrances_type_of_GST" name="entrances_type_of_GST" min="0">
+                        </div>
+
+                    {% comment %} <div>
+                        <label for="Type of GST">Type of GST</label>
+                        <div class="form-group">
+                            <select class="form-control" id="entrances_type_of_GST" name="entrances_type_of_GST">
+                                <option value="CGST">CGST</option>
+                                <option value="SGST">SGST</option>
+                                <option value="GST">GST</option>
+                                <option value="Not Applicable">Not Applicable</option>
+                            </select>
+                        </div>
+                    </div> {% endcomment %}
+                    <br>
+                    <div>
+                        <label for="Total Amount">Total Amount</label>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="entrances_total_amount" name="entrances_total_amount" onclick="myFunction5()" readonly>
+                        </div>
+                    </div>
+
+                    <input type="submit" class='btn btn-primary' value="Create Entrances Quatation">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /EntrancesQuatation Modal -->
+
+<!-- SapSanQuatation Modal -->
+<div class="modal fade" id="SapSanQuatationModal" tabindex="-1" role="dialog" aria-labelledby="SapSanQuatationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SapSanQuatationModalLabel">Add New SapSan Quatation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_sapsanquatation_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Vendor Name">Vendor Name</label>
+                            <div class="form-group">
+                                <select class="form-control" id="sapsan_service_vendor_id" name="sapsan_service_vendor_id">
+                                    {% for vendor in vendors %}
+                                    <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="SapSan From Station">SapSan From Station</label>
+                            <input type="text" class="form-control" id="sapsanquatation_From_Station" name="sapsanquatation_From_Station">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="SapSan To Station">SapSan To Station</label>
+                            <input type="text" class="form-control" id="sapsanquatation_To_Station" name="sapsanquatation_To_Station">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Number Of Passengers">Number Of Passengers</label>
+                            <input type="text" class="form-control" id="sapsan_number_of_passengers" name="sapsan_number_of_passengers" min="1">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Quote Per Head">Quote Per Head</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="sapsan_quote_per_head" name="sapsan_quote_per_head" min="1">
+                            </div>
+                        </div>
+                        <br>
+
+                        <div>
+                            <label for="SapSan ROE">SapSan ROE</label>
+                            <input type="text" class="form-control" id="sapsan_roe" name="sapsan_roe" min="1">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="sapsan_type_of_GST" name="sapsan_type_of_GST" min="0">
+                        </div>
+                        {% comment %} <div>
+                            <label for="Type of GST">Type of GST</label>
+                            <div class="form-group">
+                                <select class="form-control" id="sapsan_type_of_GST" name="sapsan_type_of_GST">
+                                    <option value="CGST">CGST</option>
+                                    <option value="SGST">SGST</option>
+                                    <option value="GST">GST</option>
+                                    <option value="Not Applicable">Not Applicable</option>
+                                </select>
+                            </div>
+                        </div> {% endcomment %}
+                        <br>
+                        <div>
+                            <label for="Total Amount">Total Amount</label>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="sapsan_total_amount" name="sapsan_total_amount" onclick="myFunction6()" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create SapSan Quatation">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /SapSanQuatation Modal -->
+<!-- Guide Modal -->
+<div class="modal fade" id="GuideModal" tabindex="-1" role="dialog" aria-labelledby="GuideModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="GuideModalLabel">Add New Guide</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_guide_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Vendor Name">Vendor Name</label>
+                            <div class="form-group">
+                                <select class="form-control" id="guide_service_vendor_id" name="guide_service_vendor_id">
+                                    {% for vendor in vendors %}
+                                    <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Guide Name">Guide Name</label>
+                            <input type="text" class="form-control" id="guide_name" name="guide_name">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Guide Destination">Guide Destination</label>
+                            <input type="text" class="form-control" id="guide_destination" name="guide_destination">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Quote Per Hour">Quote Per Hour</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="guide_quote_per_hour" name="guide_quote_per_hour" min="1">
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Number of Passengers">Number of Passengers</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="guide_number_of_passengers" name="guide_number_of_passengers" min="1">
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Guide ROE">Guide ROE</label>
+                            <input type="text" class="form-control" id="guide_roe" name="guide_roe" min="1">
+                        </div>
+                        <br>
+                        <br>
+                         <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="guide_type_of_GST" name="guide_type_of_GST" min="0">
+                        </div>
+                        {% comment %} <div>
+                            <label for="Type of GST">Type of GST</label>
+                            <div class="form-group">
+                                <select class="form-control" id="guide_type_of_GST" name="guide_type_of_GST">
+                                    <option value="CGST">CGST</option>
+                                    <option value="SGST">SGST</option>
+                                    <option value="GST">GST</option>
+                                    <option value="Not Applicable">Not Applicable</option>
+                                </select>
+                            </div>
+                        </div> {% endcomment %}
+                        <br>
+                        <div>
+                            <label for="Total Amount">Total Amount</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="guide_total_amount" name="guide_total_amount" onclick="myFunction7()" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Guide">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Guide Modal -->
+<!-- Transport Modal -->
+<div class="modal fade" id="TransportModal" tabindex="-1" role="dialog" aria-labelledby="TransportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TransportModalLabel">Add New Transport</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:add_service_transport_form_submit' service_id=grdes.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Vendor Name">Vendor Name</label>
+                            <div class="form-group">
+                                <select class="form-control" id="transport_service_vendor_id" name="transport_service_vendor_id">
+                                    {% for vendor in vendors %}
+                                    <option value={{ vendor.pk }}>{{ vendor.vendor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Transport Type of Vehicle">Transport Type of Vehicle</label>
+                            <input type="text" class="form-control" id="transport_type_of_vehicle" name="transport_type_of_vehicle">
+                        </div>
+                        <br>
+                        
+                        <div>
+                            <label for="Quote Per Head">Quote Per Head</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="transport_quote_per_head" name="transport_quote_per_head" min="1">
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Number of Passengers">Number of Passengers</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="transport_number_of_passengers" name="transport_number_of_passengers" min="1">
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Transport ROE">Transport ROE</label>
+                            <input type="text" class="form-control" id="transport_roe" name="transport_roe" min="1">
+                        </div>
+                        <br>
+                        <br>
+                         <div>
+                            <label for="GST Percentage">GST Percentage</label>
+                            
+                                <input type="number" class="form-control" id="transport_type_of_GST" name="transport_type_of_GST" min="0">
+                        </div>
+                        {% comment %} <div>
+                            <label for="Type of GST">Type of GST</label>
+                            <div class="form-group">
+                                <select class="form-control" id="guide_type_of_GST" name="guide_type_of_GST">
+                                    <option value="CGST">CGST</option>
+                                    <option value="SGST">SGST</option>
+                                    <option value="GST">GST</option>
+                                    <option value="Not Applicable">Not Applicable</option>
+                                </select>
+                            </div>
+                        </div> {% endcomment %}
+                        <br>
+                        <div>
+                            <label for="Total Amount">Total Amount</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="transport_total_amount" name="transport_total_amount" onclick="myFunction8()" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Transport">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Transport Modal -->
+{% block script %}
+<script>
+    $(function() {
+        $("#datetimepicker1").datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:SS',
+        });
+    });
+</script>
+<script>
+    $(function() {
+        $("#datetimepicker2").datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:SS',
+        });
+    });
+</script>
+{% endblock %}
+{% block extrascript %}
+ <script>
+            function myFunction1() {
+                var quote_per_head = document.getElementById("airticket_quote_per_head").value;
+                var no_of_passenger = document.getElementById("airticket_number_of_passengers").value;
+                var Roe = document.getElementById("airticket_roe").value;
+                var gst_percent = document.getElementById("airticket_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("airticket_total_amount").value = gst_amount;
+            }
+        </script>
+ <script>
+            function myFunction2() {
+                var quote_per_head = document.getElementById("visacost_quote_per_head").value;
+                var no_of_passenger = document.getElementById("visacost_number_of_passengers").value;
+                var Roe = document.getElementById("visacost_roe").value;
+                var gst_percent = document.getElementById("visacost_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("visacost_total_amount").value = gst_amount;
+            }
+        </script>
+<script>
+            function myFunction3() {
+                var quote_per_head = document.getElementById("hotel_quote_per_room").value;
+                var no_of_passenger = document.getElementById("hotelquatation_number_of_rooms").value;
+                var Roe = document.getElementById("hotel_roe").value;
+                var gst_percent = document.getElementById("hotel_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("hotel_total_amount").value = gst_amount;
+            }
+        </script>  
+<script>
+            function myFunction4() {
+                var quote_per_head = document.getElementById("restaurant_quote_per_head").value;
+                var no_of_passenger = document.getElementById("restaurantquatation_number_of_passengers").value;
+                var Roe = document.getElementById("restaurant_roe").value;
+                var gst_percent = document.getElementById("restaurant_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("restaurant_total_amount").value = gst_amount;
+            }
+        </script>  
+<script>
+            function myFunction5() {
+                var quote_per_head = document.getElementById("entrances_quote_per_head").value;
+                var no_of_passenger = document.getElementById("entrances_number_of_passengers").value;
+                var Roe = document.getElementById("entrances_roe").value;
+                var gst_percent = document.getElementById("entrances_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("entrances_total_amount").value = gst_amount;
+            }
+        </script>   
+
+<script>
+            function myFunction6() {
+                var quote_per_head = document.getElementById("sapsan_quote_per_head").value;
+                var no_of_passenger = document.getElementById("sapsan_number_of_passengers").value;
+                var Roe = document.getElementById("sapsan_roe").value;
+                var gst_percent = document.getElementById("sapsan_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("sapsan_total_amount").value = gst_amount;
+            }
+        </script>     
+<script>
+            function myFunction7() {
+                var quote_per_head = document.getElementById("guide_quote_per_hour").value;
+                var no_of_passenger = document.getElementById("guide_number_of_passengers").value;
+                var Roe = document.getElementById("guide_roe").value;
+                var gst_percent = document.getElementById("guide_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("guide_total_amount").value = gst_amount;
+            }
+        </script> 
+<script>
+            function myFunction8() {
+                var quote_per_head = document.getElementById("transport_quote_per_head").value;
+                var no_of_passenger = document.getElementById("transport_number_of_passengers").value;
+                var Roe = document.getElementById("transport_roe").value;
+                var gst_percent = document.getElementById("transport_type_of_GST").value;
+                var gst = gst_percent/100;
+                var nod = quote_per_head * no_of_passenger * Roe ;
+                var gst_amount = nod + (nod*gst);
+                
+                document.getElementById("transport_total_amount").value = gst_amount;
+            }
+        </script>             
+{% endblock %}

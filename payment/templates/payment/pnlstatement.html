@@ -1,0 +1,188 @@
+{% extends 'payment/base.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+    <!-- PAGE CONTENT  -->
+    <div id="content">
+        <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+            </button>
+
+            <!--Client Details FORM STARTS-->
+            <hr>
+
+            <h3>{{js_data.user_office_location}} Enter Tour Details</h3>
+            <p> Last VT Ref Number was {{group_description_latest}}</p>
+
+            <hr>
+
+            <!--TEXT FIELDS START HERE-->
+            <form action={% url 'payment:group_description_form_submit' %} method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col">
+                        <label for="VT Ref. No.">VT Ref. No.</label>
+                        <input type="text" class="form-control" id="groupdescription_vtrefNo" onclick="myFunction2()" name="groupdescription_vtrefNo">
+                    </div>
+                    
+
+                    <div class="col">
+                        <label for="Client Name">Client Name</label>
+                        <div class="form-group">
+                            <select class="form-control" id="groupdescription_client_id" name="groupdescription_client_id">
+                                {% for client in clients %}
+                                <option value={{ client.pk }}>{{ client.client_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="No. of Passengers ( Paid )">No. of Passengers ( Paid )</label>
+                        <input type="number" class="form-control" id="groupdescription_number_of_passengers_paid" name="groupdescription_number_of_passengers_paid">
+                    </div>
+                    <div class="col">
+                        <label for="No. of Passengers ( Free )">No. of Passengers ( Free )</label>
+                        <input type="number" class="form-control" min="0" id="groupdescription_number_of_passengers_free" name="groupdescription_number_of_passengers_free">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="groupdescription_start_date">Traveling Start Date</label>
+                        <input type="date" class="form-control" id="groupdescription_start_date" name="groupdescription_start_date">
+                    </div>
+                    <div class="col">
+                        <label for="groupdescription_end_date">Traveling End Date</label>
+                        <input type="date" class="form-control" id="groupdescription_end_date" name="groupdescription_end_date">
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="groupdescription_destination">Destination</label>
+                        <input type="text" class="form-control" id="groupdescription_destination" name="groupdescription_destination">
+                    </div>
+                    <div class="col">
+                        <label for="groupdescription_number_of_days">No. of Days</label>
+                        <input type="number" min="1" class="form-control" id="groupdescription_number_of_days" onclick="myFunction1()" name="groupdescription_number_of_days" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="Volshebny Handle Person">Volshebny Handle Person</label>
+                        <input type="text" class="form-control" id="groupdescription_volshebny_handle_person" name="groupdescription_volshebny_handle_person">
+                    </div>
+
+                    <div class="col">
+                        <label for="Client Handle Person">Client Handle Person</label>
+                        <input type="text" class="form-control" id="groupdescription_client_handle_person" name="groupdescription_client_handle_person">
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="Booking Date">Booking Date</label>
+                        <input type="date" class="form-control" id="groupdescription_booking_date" name="groupdescription_booking_date">
+                    </div>
+
+                    <div class="col">
+                        <label for="Confirmation Date">Confirmation Date</label>
+                        <input type="date" class="form-control" id="groupdescription_confirmation_date" name="groupdescription_confirmation_date">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="groupdescription_roe">ROE</label>
+                        <input type="number" min=1 class="form-control" id="groupdescription_roe" name="groupdescription_roe">
+                    </div>
+                    <div class="col">
+                        <label for="temp_amount">Amount</label>
+                        <input type="number" min=1 class="form-control" id="temp_amount" name="temp_amount">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="groupdescription_amount">Total Amount</label>
+                        <input type="number" min=1 class="form-control" id="groupdescription_amount" name="groupdescription_amount" onclick="myFunction3()" readonly>
+                    </div>
+                    <div class="col">
+                        <label for="Payment Method">Payment Method</label>
+                        <input type="text" class="form-control" id="groupdescription_payment_method" name="groupdescription_payment_method">
+                    </div>
+                </div>
+                
+                    
+                
+
+                <br>
+                <input type="submit" class="btn btn-info btn-block" value="Save Tour Details and Services"></input>
+            </form>
+            <!--/TEXTFIELDS END HERE-->
+            <!--/Client DETAILS Form ENDS-->
+            <br>
+
+        </div>
+    </div>
+</div>
+        <script>
+            function myFunction1() {
+                 var x = new Date(document.getElementById("groupdescription_start_date").value);
+                 var y = new Date(document.getElementById("groupdescription_end_date").value);
+                    var nod = ((y.getTime()-x.getTime()) / (1000 * 3600 * 24)+1)
+                 document.getElementById("groupdescription_number_of_days").value = nod ;
+            }
+            function myFunction2() {
+            var city = "MUMBAI";
+            var City = city.substring(0, 3);
+            var name = "Sangram";
+            var Name = name.substring(0, 2);
+ 
+            var num = 0;
+            var a = 1;
+            var myNumber= num;
+            
+            if(myNumber.toString().length>=4) {
+                var formattedNumber = (myNumber);
+            }
+             else if (myNumber.toString().length=1){
+                var formattedNumber = ("000" + myNumber).slice(-4);
+            }
+            else if (myNumber.toString().length=2){
+                var formattedNumber = ("00" + myNumber).slice(-3);
+            }
+             else if (myNumber.toString().length=3){
+                var formattedNumber = ("0" + myNumber).slice(-2);
+            }
+             else if (myNumber.toString().length=4){
+                var formattedNumber = ("" + myNumber).slice(-1);
+            }
+             
+            document.getElementById("groupdescription_vtrefNo").value = "VT/" + City + "/" + Name + "/" + formattedNumber;
+        }
+        </script>
+        
+        <script>
+        function myFunction3() {
+            var Roe = document.getElementById("groupdescription_roe").value;
+            var temp_amount = document.getElementById("temp_amount").value;
+            Total_amount = Roe * temp_amount ;
+            document.getElementById("groupdescription_amount").value = Total_amount;
+        }
+        </script>
+<!--PAGE CONTENT ENDS HERE-->
+{% endblock content %}
+
+{% block script %}
+
+        
+{% endblock %}
+{% block extrascript %}
+
+
+{% endblock %}

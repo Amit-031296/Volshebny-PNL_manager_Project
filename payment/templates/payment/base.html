@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Volshebny Holidays</title>
+
+    <!-- Base CSS -->
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'payment/style.css' %}">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- Base Script -->
+    
+    
+    
+    
+    
+    <!-- Popper.JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+    
+    
+    <!--jQuery-->
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+    
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    
+    <!-- Script from Child Template Head -->
+    {% block headscript %}
+    {% endblock headscript %}
+
+    <!-- Block for CSS -->
+	{% block stylesheets %}
+	{% endblock stylesheets %}
+    
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- SIDEBAR  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h4>Volshebny PNL Manager</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="{% url 'payment:group_description_form' %}">Add a New Tour Details</a>
+                </li>
+                {% comment %}
+                <li>
+                    <a href="{% url 'payment:add_services' %}">Add Services</a>
+                </li>
+                {% endcomment %}
+                <li>
+                    <a href="{% url 'payment:pnllist' %}">All Tour List</a>
+                </li>
+                <li>
+                    <a href="{% url 'payment:clientlist' %}">Client Acoounts</a>
+                </li>
+                <li>
+                    <a href="{% url 'payment:vendorlist' %}">All Vendors</a>
+                </li>
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Vendor Accounts</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="{% url 'payment:vendor_accounts_airticket_quatation' %}">Air Ticket Quotation</a>
+                        </li>
+                        <li>
+                             <a href="{% url 'payment:vendor_accounts_visacost_quatation' %}">Visa Cost Quotation</a>
+                        </li>
+                         <li>
+                             <a href="{% url 'payment:vendor_accounts_hotel_quatation' %}">Hotel Quotation</a>
+                        </li>
+                         <li>
+                             <a href="{% url 'payment:vendor_accounts_restaurant_quatation' %}">Restuarant Quotation</a>
+                        </li>
+                         <li>
+                             <a href="{% url 'payment:vendor_accounts_entrances_quatation' %}">Entrance Quotation</a>
+                        </li>
+                         <li>
+                             <a href="{% url 'payment:vendor_accounts_sapsan_quatation' %}">Sapsan Quotation</a>
+                        </li>
+                        <li>
+                             <a href="{% url 'payment:vendor_accounts_guide' %}">Guide Service</a>
+                        </li>
+                        <li>
+                             <a href="{% url 'payment:vendor_accounts_transport' %}">Transport Service</a>
+                        </li>
+                    </ul>
+                </li>
+               
+                <li>
+                    <a href="{% url 'payment:userlist' %}">Portal Users</a>
+                </li>
+                
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="{% url 'payment:logout' %}" class="btn btn-light">
+                        <font color="#7386D5">Logout</font>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'payment:report_error' %}" class="btn btn-light">
+                        <font color="#7386D5">Report Error</font>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
+
+
+    </div>
+
+    <!--SIDEBAR ENDS HERE-->
+
+    {% block script %}
+    {% endblock %}
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+
+    {% block extrascript %}
+    {% endblock %}
+
+</body>
+
+</html>

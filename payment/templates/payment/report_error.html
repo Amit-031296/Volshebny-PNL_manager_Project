@@ -1,0 +1,47 @@
+{% extends 'payment/base.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content -->
+<div>
+<div id="content">
+    <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+        </button>
+        <br>
+        <br>
+        <h1>Report Error</h1>
+
+        <hr>
+
+        <!--GENERAL DETAILS FORM STARTS-->
+        <!--TEXT FIELDS START HERE-->
+        
+            <form action={% url 'payment:report_error_submit' %} method="post">
+                {% csrf_token %}
+                <div class="col">
+                    <label for="subject">Subject</label>
+                    <input type="text" class="form-control" id="subject" name="subject">
+                </div>
+
+                <br>
+                <div class="col">
+                    <form>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea class="form-control" rows="5" id="message" name="message"></textarea>
+                        </div>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary id = btn">Submit</button>
+
+                    </form>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

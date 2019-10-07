@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    
+<title>clients</title>
+</head>
+<body>
+<div class="container">
+<h1>Please enter your details Here:</h1>
+<form method="POST">
+{{ form.as_p }}
+{% csrf_token %}
+<input type="submit" class='btn btn-primary' value="submit">
+</form>
+
+</div>
+
+</body>
+</html>

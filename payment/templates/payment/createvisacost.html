@@ -1,0 +1,88 @@
+{% extends 'payment/base.html' %}
+{% load static %}
+
+   {% block content %}
+  <div>
+       <!-- PAGE CONTENT  -->
+        <div id="content">
+        	<div class="container-fluid">
+            	<button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+
+                <!--Visa Cost FORM STARTS-->
+                <hr>
+
+                <h2>Visa Cost Form Details</h2>
+
+                <hr>
+
+                <!--TEXT FIELDS START HERE-->
+                <form action={% url 'payment:group_description_form_submit' %} method="post">
+                 {% csrf_token %}
+                    <div class="form-row">
+                            <div class="col">
+                                <label for="Visa Letter Cost">Visa Letter Cost</label>
+                                <input type="number" class="form-control" id="groupdescription_vtrefNo" name="groupdescription_vtrefNo">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Type Of Visa">Type Of Visa</label>
+                                <div class="form-group">
+                                        <select name="GST" class="form-control">
+                                            <option value="Tourist single">Tourist single</option>
+                                            <option value="Tourist Double">Tourist Double</option>
+                                            <option value="Business">Business</option>
+                                        </select>
+                                </div>
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Time Period">Time Period</label>
+                                <div class="form-group">
+                                        <select name="GST" class="form-control">
+                                            <option value="Normal">Normal</option>
+                                            <option value="Urgent">Urgent</option>
+                                        </select>
+                                </div>
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Visacost ROE">Visacost ROE</label>
+                                <input type="text" class="form-control" id="groupdescription_vtrefNo" name="groupdescription_vtrefNo">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Type of GST">Type of GST</label>
+                                <div class="form-group">
+                                        <select name="GST" class="form-control">
+                                            <option value="CGST">CGST</option>
+                                            <option value="SGST">SGST</option>
+                                            <option value="GST">GST</option>
+                                            <option value="Not applicable">Not applicable</option>
+                                        </select>
+                                </div>
+                            </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Visa Cost">
+                    </form>
+                    <!--/TEXTFIELDS END HERE-->
+                    <!--/Visa Cost Form ENDS-->
+                    
+
+            </div>
+            </div>
+        </div>
+        <!--PAGE CONTENT ENDS HERE-->
+    	  {% endblock content %}
+
+    {% block script %}
+
+    {% endblock %}
+    {% block extrascript %}
+    
+        </script>
+ {% endblock %}
+ 
+

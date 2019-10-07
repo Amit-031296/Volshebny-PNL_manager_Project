@@ -1,0 +1,56 @@
+{% extends 'payment/base.html' %}
+{% load static %}
+
+   {% block content %}
+  <div>
+       <!-- PAGE CONTENT  -->
+        <div id="content">
+        	<div class="container-fluid">
+            	<button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+
+                <!--SapSan Quatation FORM STARTS-->
+                <hr>
+
+                <h2>SapSan Quatation Form Details</h2>
+
+                <hr>
+
+                <!--TEXT FIELDS START HERE-->
+                <form action={% url 'payment:group_description_form_submit' %} method="post">
+                 {% csrf_token %}
+                    <div class="form-row">
+                            <div class="col">
+                                <label for="SapSan From Station">SapSan From Station</label>
+                                <input type="text" class="form-control" id="groupdescription_vtrefNo" name="groupdescription_vtrefNo">
+                            </div>
+                        <br>
+                            <div class="col">
+                                    <label for="SapSan To Station">SapSan To Station</label>
+                                    <input type="text" class="form-control" id="groupdescription_vtrefNo" name="groupdescription_vtrefNo">
+                            </div>
+
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create SapSan Quatation">
+                    </form>
+                    <!--/TEXTFIELDS END HERE-->
+                    <!--/Entrances Quatation Form ENDS-->
+                    
+
+            </div>
+            </div>
+        </div>
+        <!--PAGE CONTENT ENDS HERE-->
+    	  {% endblock content %}
+
+    {% block script %}
+
+    {% endblock %}
+    {% block extrascript %}
+    
+        </script>
+ {% endblock %}
+ 
+

@@ -1,0 +1,88 @@
+{% extends 'payment/base.html' %}
+{% load static %}
+
+   {% block content %}
+  <div>
+       <!-- PAGE CONTENT  -->
+        <div id="content">
+        	<div class="container-fluid">
+            	<button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+
+                <!--Hotel Quatation FORM STARTS-->
+                <hr>
+
+                <h2>Hotel Quatation Form Details</h2>
+
+                <hr>
+
+                <!--TEXT FIELDS START HERE-->
+                <form action={% url 'payment:group_description_form_submit' %} method="post">
+                 {% csrf_token %}
+                    <div class="form-row">
+                            <div class="col">
+                                <label for="Hotel Name">Hotel Name</label>
+                                <input type="text" class="form-control" id="groupdescription_vtrefNo" name="groupdescription_vtrefNo">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Number of Rooms">Number of Rooms</label>
+                                <input type="number" class="form-control" id="groupdescription_vtrefNo" name="groupdescription_vtrefNo">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Type of Room">Type of Room</label>
+                                <div class="form-group">
+                                        <select name="Type of Room" class="form-control">
+                                            <option value="Single Occupancy">Single Occupancy</option>
+                                            <option value="Double Occupancy">Double Occupancy</option>
+                                            <option value="Triple Occupancy">Triple Occupancy</option>
+                                        </select>
+                                    </div>
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Breakfast Provides">Breakfast Provides</label>
+                                <div class="form-group">
+                                        <select name="Breakfast Provides" class="form-control">
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Type of GST">Type of GST</label>
+                                    <div class="form-group">
+                                        <select name="GST" class="form-control">
+                                            <option value="CGST">CGST</option>
+                                            <option value="SGST">SGST</option>
+                                            <option value="GST">GST</option>
+                                            <option value="Not applicable">Not applicable</option>
+                                        </select>
+                                    </div>
+                            </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Hotel Quatation">
+                    </form>
+                    <!--/TEXTFIELDS END HERE-->
+                    <!--/Hotel Quatation Form ENDS-->
+                    
+
+            </div>
+            </div>
+        </div>
+        <!--PAGE CONTENT ENDS HERE-->
+    	  {% endblock content %}
+
+    {% block script %}
+
+    {% endblock %}
+    {% block extrascript %}
+    
+        </script>
+ {% endblock %}
+ 
+

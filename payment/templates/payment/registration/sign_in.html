@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/bootstrap.min.css' %}>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/fontawesome-all.min.css' %}>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/iofrm-style.css' %}>
+	<link rel="stylesheet" type="text/css" href={% static 'payment/css/iofrm-theme5.css' %}>
+</head>
+
+<body style="background-color: #7386D5 !important;">
+	<div class="row">
+		<div class="form-holder" style="background-color: #7386D5 !important;">
+			<div class="form-content" style="background-color: #7386D5 !important;">
+				<div class="form-items">
+					<h3>Volshebny Tour PNL Manager</h3>
+					<p>Enter your username and password!</p>
+					<div class="page-links">
+						<a href="#" class="active">Login</a><a href="{% url 'payment:user_sign_up' %}">Register</a>
+					</div>
+					{% if error_message %}
+					<p style='color:red'>{{ error_message }}</p>
+					{% endif %}
+					<form method="POST" action={% url 'payment:user_login' %}>
+						{% csrf_token %}
+						<input class="form-control" type="text" name="username" placeholder="Username" required>
+						<input class="form-control" type="password" name="password" placeholder="Password" required>
+						<div class="form-button">
+							<button id="submit" type="submit" class="ibtn">Login</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+{% extends 'payment/base.html' %}
+{% load static %}
+
+   {% block content %}
+  <div>
+       <!-- PAGE CONTENT  -->
+        <div id="content">
+        	<div class="container-fluid">
+            	<button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+
+                <!--Air Ticket FORM STARTS-->
+                <hr>
+
+                <h2>Air Ticket Form Details</h2>
+
+                <hr>
+
+                <!--TEXT FIELDS START HERE-->
+                <form action={% url 'payment:add_service_airticket_form_submit' %} method="post">
+                 {% csrf_token %}
+                    <div class="form-row">
+                            <div class="col">
+                                <label for="Airline Name">Airline Name</label>
+                                <input type="text" class="form-control" id="airticket_form_airline_name" name="airticket_form_airline_name">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Date and Time Of Departure">Date and Time Of Departure</label>
+                                <input type="datetime" class="form-control" id="airticket_form_date_and_time_of_departure" name="airticket_form_date_and_time_of_departure">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Date and Time Of Arrival">Date and Time Of Arrival</label>
+                                <input type="datetime" class="form-control" id="airticket_form_date_and_time_of_arrival" name="airticket_form_date_and_time_of_arrival">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Airline Departure From">Airline Departure From</label>
+                                <input type="text" class="form-control" id="airticket_form_airline_departure_from" name="airticket_form_airline_departure_from">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Airline Arrival At">Airline Arrival At</label>
+                                <input type="text" class="form-control" id="airticket_form_airline_arrival_at" name="airticket_form_airline_arrival_at">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Airticket Booked From">Airticket Booked From</label>
+                                <input type="text" class="form-control" id="airticket_form_booked_from" name="airticket_form_booked_from">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Airticket ROE">Airticket ROE</label>
+                                <input type="text" class="form-control" id="airticket_form_roe" name="airticket_form_roe">
+                            </div>
+                        <br>
+                            <div class="col">
+                                <label for="Type of GST">Type of GST</label>
+                                    <div class="form-group">
+                                        <select name="GST" class="form-control" id="airticket_form_type_of_gst" name="airticket_form_type_of_gst" >
+                                            <option value="CGST">CGST</option>
+                                            <option value="SGST">SGST</option>
+                                            <option value="GST">GST</option>
+                                            <option value="Not applicable">Not applicable</option>
+                                        </select>
+                                    </div>
+                            </div>
+                    </div>
+                    <br>
+                    <input type="submit" class='btn btn-primary' value="Create Air Ticket">
+                    </form>
+                    <!--/TEXTFIELDS END HERE-->
+                    <!--/Air Ticket Form ENDS-->
+                    
+
+            </div>
+            </div>
+        </div>
+        <!--PAGE CONTENT ENDS HERE-->
+    	  {% endblock content %}
+
+    {% block script %}
+
+    {% endblock %}
+    {% block extrascript %}
+    
+ {% endblock %}
+ 
+

@@ -1,0 +1,108 @@
+{% extends 'payment/base.html' %}
+
+{% load static %}
+
+{% block headscript %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+{% endblock headscript %}
+
+{% block content %}
+<!-- Modal for CURD Operation -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<div>
+<!-- Page Content -->
+        <hr>
+        <h1>This is all pnlstatement</h1>
+        <hr>
+        <div>
+            {% if groupdesc %}
+            <table id="TestTable">
+                <thead style = "font-size:12px" >
+                    <tr>
+                        <th class="text-center" scope="col">vtrefNo</th>
+                        <th class="text-center" scope="col">Client</th>
+                        <th class="text-center" scope="col">Passenger (Paid)</th>
+                        <th class="text-center" scope="col">Passenger (Free)</th>
+                        <th class="text-center" scope="col">No. of Days</th>
+                        <th class="text-center" scope="col">Travel Date</th>
+                        <th class="text-center" scope="col">VT Handle Person</th>
+                        <th class="text-center" scope="col">Handle Person</th>
+                        <th class="text-center" scope="col">Booking Date</th>
+                        <th class="text-center" scope="col">Confirm Date</th>
+                        <th class="text-center" scope="col">Payment Method</th>
+                        <th class="text-center" scope="col">Summary</th>
+                        <th class="text-center" scope="col">Update</th>
+                        <th class="text-center" scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody style = "font-size:11px">
+                    {% for grdes in groupdesc %}
+                    <tr>
+                        <td class="text-center">{{ grdes.groupdescription_vtrefNo }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_client_Name }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_number_of_passengers_paid }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_number_of_passengers_free }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_number_of_days }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_traveling_date }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_volshebny_handle_person }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_client_handle_person }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_booking_date }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_confirmation_date }}</td>
+                        <td class="text-center">{{ grdes.groupdescription_payment_method }}</td>
+                        <td class="text-center">
+                        <button type="button" class="read-book btn btn-sm btn-primary"  data-id="{% url 'payment:group_summary' grdes.pk %}">
+                                <span class="fa fa-eye"></span></button>
+                         </td>
+                         <td>       
+                        <button type="button" class="update-book btn btn-sm btn-primary" data-id="{% url 'payment:group_update' grdes.pk %}">
+                          <span class="fa fa-pencil"></span>
+                        </button>
+                        </td>
+                        <td>
+                        <button type="button" class="delete-book btn btn-sm btn-danger" data-id="{% url 'payment:group_delete' grdes.pk %}">
+                          <span class="fa fa-trash"></span>
+                        </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-leads text-primary">No entry added yet.</p>
+            {% endif %}
+        </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#TestTable').DataTable();
+    });
+</script>
+{% endblock %}
+
+{% block extrascript %}
+<script type="text/javascript">
+    $(function() {
+        $(".update-book").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+         $(".delete-book").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
+        
+      $(".read-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+    });
+</script>
+{% endblock %}
